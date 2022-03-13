@@ -1,0 +1,116 @@
+﻿<Window x:Class="Asystent_wyboru_aut_uzywanych.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asystent_wyboru_aut_uzywanych"
+        xmlns:vm ="clr-namespace:Asystent_wyboru_aut_uzywanych.ViewModel"
+        xmlns:view="clr-namespace:Asystent_wyboru_aut_uzywanych.View"
+        xmlns:view1="clr-namespace:Asystent_wyboru_aut_uzywanych.View.ViewControls"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+        mc:Ignorable="d"
+        Title="Asystent wyboru aut używanych" Height="600" Width="1200">
+
+    <Window.Resources>
+        <vm:MainViewModel x:Key="mainVM"/>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True"
+               DataContext="{DynamicResource mainVM}">
+
+        <StatusBar DockPanel.Dock="Bottom"
+                   Height="40">
+
+            <StatusBarItem>
+                <view1:ProgramStatusViewControl x:Name="StatusBar"
+                                                StatusText="{Binding StatusString, Mode=TwoWay}"
+                                                StatusLevel="{Binding StatusLevel, Mode=TwoWay}"/>
+            </StatusBarItem>
+        </StatusBar>
+        
+        <Grid DockPanel.Dock="Bottom">
+
+            <TabControl>
+                <TabItem x:Name="Add_car_control" Header="Dodaj Auto">
+                    <view:AddCarViewControl x:Name="Add_control"
+                                            Price="{Binding carsVM.Price, Mode=TwoWay}"
+                                            Power="{Binding carsVM.Power, Mode=TwoWay}"
+                                            Mileage="{Binding carsVM.Mileage, Mode=TwoWay}"
+                                            CarYear="{Binding carsVM.Age, Mode=TwoWay}"
+                                            AvailableBrands="{Binding carsVM.Brands}"
+                                            AvailableDamages="{Binding carsVM.Damages}"
+                                            AvailableFuels="{Binding carsVM.Fuels}"
+                                            AvailableGears="{Binding carsVM.Gears}"
+                                            AvailableModels="{Binding carsVM.Models, Mode=TwoWay}"
+                                            AvailableTypes="{Binding carsVM.Types}"
+                                            Brand="{Binding carsVM.Selected_Brand, Mode=TwoWay}"
+                                            Model="{Binding carsVM.Selected_Model, Mode=TwoWay}"
+                                            Type="{Binding carsVM.Selected_Type, Mode=TwoWay}"
+                                            Gear="{Binding carsVM.Selected_Gear, Mode=TwoWay}"
+                                            Fuel="{Binding carsVM.Selected_Fuel, Mode=TwoWay}"
+                                            Damage="{Binding carsVM.Selected_Damage, Mode=TwoWay}"/>
+                </TabItem>
+                
+                <TabItem x:Name="Browse_cars_control" Header="Wyświetlanie Aut z Bazy">
+                    <view:BrowseCarViewControl x:Name="Browse_control"
+                                                AvailableBrands="{Binding listVM.Brands}"
+                                                AvailableDamages="{Binding listVM.Damages}"
+                                                AvailableFuels="{Binding listVM.Fuels}"
+                                                AvailableGears="{Binding listVM.Gears}"
+                                                AvailableModels="{Binding listVM.Models, Mode=TwoWay}"
+                                                AvailableTypes="{Binding listVM.Types}"
+                                                Brand="{Binding listVM.Selected_Brand, Mode=TwoWay}"
+                                                Model="{Binding listVM.Selected_Model, Mode=TwoWay}"
+                                                Type="{Binding listVM.Selected_Type, Mode=TwoWay}"
+                                                Gear="{Binding listVM.Selected_Gear, Mode=TwoWay}"
+                                                Fuel="{Binding listVM.Selected_Fuel, Mode=TwoWay}"
+                                                Damage="{Binding listVM.Selected_Damage, Mode=TwoWay}"
+                                                ListViewCarsCollection="{Binding listVM.Cars}"
+                                               />
+                </TabItem>
+
+                <TabItem x:Name="Remove_cars_control" Header="Usuwanie Aut z Bazy">
+                    <view:RemoveCarViewControl x:Name="Remove_control"
+                                                AvailableBrands="{Binding removeVM.Brands}"
+                                                AvailableDamages="{Binding removeVM.Damages}"
+                                                AvailableFuels="{Binding removeVM.Fuels}"
+                                                AvailableGears="{Binding removeVM.Gears}"
+                                                AvailableModels="{Binding removeVM.Models, Mode=TwoWay}"
+                                                AvailableTypes="{Binding removeVM.Types}"
+                                                Brand="{Binding removeVM.Selected_Brand, Mode=TwoWay}"
+                                                Model="{Binding removeVM.Selected_Model, Mode=TwoWay}"
+                                                Type="{Binding removeVM.Selected_Type, Mode=TwoWay}"
+                                                Gear="{Binding removeVM.Selected_Gear, Mode=TwoWay}"
+                                                Fuel="{Binding removeVM.Selected_Fuel, Mode=TwoWay}"
+                                                Damage="{Binding removeVM.Selected_Damage, Mode=TwoWay}"
+                                                ListViewCarsCollection="{Binding removeVM.Cars}"
+                                                ListViewSelectedCar ="{Binding removeVM.Selected_Car, Mode=TwoWay}"
+                                               />
+                </TabItem>
+                
+                <TabItem x:Name="Predict_cars_control" Header="Asystent wyboru auta">
+                    <view:PredictCarViewControl x:Name="Predict_control"
+                                        PriceMax="{Binding predictVM.Price_Max, Mode=TwoWay}"
+                                        PriceMin="{Binding predictVM.Price_Min, Mode=TwoWay}"
+                                        Power="{Binding predictVM.Power, Mode=TwoWay}"
+                                        Mileage="{Binding predictVM.Mileage, Mode=TwoWay}"
+                                        CarYear="{Binding predictVM.Age, Mode=TwoWay}"
+                                        AvailableDamages="{Binding predictVM.Damages}"
+                                        AvailableFuels="{Binding predictVM.Fuels}"
+                                        AvailableGears="{Binding predictVM.Gears}"
+                                        AvailableTypes="{Binding predictVM.Types}"
+                                        Type="{Binding predictVM.Selected_Type, Mode=TwoWay}"
+                                        Gear="{Binding predictVM.Selected_Gear, Mode=TwoWay}"
+                                        Fuel="{Binding predictVM.Selected_Fuel, Mode=TwoWay}"
+                                        Damage="{Binding predictVM.Selected_Damage, Mode=TwoWay}"/>
+                 </TabItem>
+                <TabItem x:Name="Predict_cars_history_control" Header="Historia predykcji">
+                    <view:PredictCarHistoryViewControl x:Name="Predict_History_control"
+                        ListViewCarsHistoryCollection="{Binding historyVM.Search_History}"
+                        ListViewSelectedHistoryItem="{Binding historyVM.Selected_Result, Mode=TwoWay}"
+                    />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>
